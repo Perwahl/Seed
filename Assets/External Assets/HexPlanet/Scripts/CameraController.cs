@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-
+    public Camera cam;
     public float distanceToTarget;
     public Transform target;
     public float rotateSpeed = 1f;
@@ -21,22 +21,22 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPos;
 
     private float t;
-    private float maxZoomOut = 5f;
-
+    [SerializeField] private float maxZoomOut = 5f;
+    [SerializeField] private float maxZoomIn = 5f;
     private float targetAngle;
-
 
     // Update is called once per frame
 
     void Start()
     {
-        transform.LookAt(target);
+        cam.transform.LookAt(target);
         prevTarget = target;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        distanceToTarget = Vector3.Distance(target.position, transform.position);
+        distanceToTarget = Vector3.Distance(transform.position, cam.transform.position);
+
         if (changingTarget)
         {
             t += Time.deltaTime * transitionSpeed;
@@ -86,43 +86,35 @@ public class CameraController : MonoBehaviour
             }
             return;
         }
+
+        //zoom out
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            transform.position = transform.position + (transform.forward * -1)* (distanceToTarget*0.1f);
-            //Camera.main.fieldOfView = Camera.main.fieldOfView + 5f;
-            //Camera.main.orthographicSize = Camera.main.orthographicSize + 1f;
+            if (distanceToTarget < maxZoomOut)
+            {
+                cam.transform.position = cam.transform.position + (cam.transform.forward * -1) * (distanceToTarget * 0.1f);
+            }
+            
         }
+        //zoom in
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            if (distanceToTarget > maxZoomIn)
+            {
+                cam.transform.position = cam.transform.position + (cam.transform.forward) * (distanceToTarget * 0.1f);
+            }
+        }
 
-            transform.position = transform.position + (transform.forward) * (distanceToTarget*0.1f);
+        if (Input.GetMouseButton(0))
+        {
+            float speed = rotateSpeed * distanceToTarget * Time.deltaTime;
+            var x = new Vector3(0f, Input.GetAxis("Mouse X"), 0f);
+            Quaternion yaw = Quaternion.Euler(0f, Input.GetAxis("Mouse X") * speed, 0f);
+            transform.rotation = yaw * transform.rotation; // yaw on the left.
+            var y = new Vector3(Input.GetAxis("Mouse Y") * -1, 0.0f, 0.0f);
 
-            //Camera.main.fieldOfView = Camera.main.fieldOfView - 2.5f;
-            //Camera.main.orthographicSize = Camera.main.orthographicSize - 1f;
-            //if (Camera.main.orthographicSize < 1.5f)
-            //{
-            //    Camera.main.orthographicSize = 1.5f;
-            //}
-            //if (Camera.main.fieldOfView < 5)
-            //{
-            //    Camera.main.fieldOfView = 5f;
-            //}
-        }
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            transform.RotateAround(target.position, transform.up, rotateSpeed * (invertHoriz ? -1f : 1f));
-        }
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            transform.RotateAround(target.position, transform.up, -rotateSpeed * (invertHoriz ? -1f : 1f));
-        }
-        if (Input.GetAxis("Vertical") > 0)
-        {
-            transform.RotateAround(target.position, transform.right, -rotateSpeed * (invertVertical ? -1f : 1f));
-        }
-        if (Input.GetAxis("Vertical") < 0)
-        {
-            transform.RotateAround(target.position, transform.right, rotateSpeed * (invertVertical ? -1f : 1f));
+            Quaternion pitch = Quaternion.Euler(-Input.GetAxis("Mouse Y") * speed, 0f, 0f);
+            transform.rotation = transform.rotation * pitch; // pitch on the right.
         }
     }
 
