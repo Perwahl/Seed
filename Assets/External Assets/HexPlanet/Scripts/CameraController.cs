@@ -93,9 +93,9 @@ public class CameraController : MonoBehaviour
             if (distanceToTarget < maxZoomOut)
             {
                 cam.transform.position = cam.transform.position + (cam.transform.forward * -1) * (distanceToTarget * 0.1f);
-            }
-            
+            }            
         }
+
         //zoom in
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
