@@ -8,28 +8,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f477b0328fe08145920ef6b82b79de7, type: 3}
+  m_Script: {fileID: 11500000, guid: d48e7d87040ce4f66a07c75b885f4f80, type: 3}
   m_Name: Shape
   m_EditorClassIdentifier: 
-  planetRadius: 1
+  planetRadius: 8
   noiseLayers:
-  - enabled: 0
+  - enabled: 1
     useFirstLayerAsMask: 0
     noiseSettings:
-      strength: 0
-      numLayers: 3
-      baseRoughness: 0
-      roughness: 0
-      persistence: 0
-      centre: {x: 0, y: 0, z: 0}
-      minValue: 0
-  - enabled: 0
+      filterType: 1
+      simpleNoiseSettings:
+        strength: 1
+        numLayers: 1
+        baseRoughness: 1
+        roughness: 2
+        persistence: 0.5
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0
+      ridgidNoiseSettings:
+        strength: 0.06
+        numLayers: 4
+        baseRoughness: 1.19
+        roughness: 4.99
+        persistence: 0.45
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0.8
+        weightMultiplier: 1.53
+  - enabled: 1
     useFirstLayerAsMask: 0
     noiseSettings:
-      strength: 0
-      numLayers: 0
-      baseRoughness: 0
-      roughness: 0
-      persistence: 0
-      centre: {x: 0, y: 0, z: 0}
-      minValue: 0
+      filterType: 0
+      simpleNoiseSettings:
+        strength: 0.19
+        numLayers: 3
+        baseRoughness: 0.1
+        roughness: 12
+        persistence: 0.1
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0
+      ridgidNoiseSettings:
+        strength: 1.42
+        numLayers: 4
+        baseRoughness: 1.59
+        roughness: 3.3
+        persistence: 0.5
+        centre: {x: 0, y: 0, z: 0}
+        minValue: 0.37
+        weightMultiplier: 0.78

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainFace {
+public class TerrainFace
+{
 
     ShapeGenerator shapeGenerator;
     Mesh mesh;
@@ -10,6 +11,7 @@ public class TerrainFace {
     Vector3 localUp;
     Vector3 axisA;
     Vector3 axisB;
+    GridTile[] tiles;
 
     public TerrainFace(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
     {
@@ -55,5 +57,24 @@ public class TerrainFace {
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+    }
+
+    public GridTile[] CreateGridTiles()
+    {
+        int numberOfTiles = (resolution - 1) * (resolution - 1) * 3;
+        tiles = new GridTile[numberOfTiles];
+
+        for (int i = 0; i < numberOfTiles; i++)
+        {
+            tiles[i] = new GridTile()
+            {
+                gridID = i,
+                triangle1 = i * 2,
+                triangle2 = (i * 2) + 1
+
+            };
+        }
+
+        return tiles;
     }
 }
