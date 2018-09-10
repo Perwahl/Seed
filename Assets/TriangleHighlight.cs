@@ -9,7 +9,7 @@ public class TriangleHighlight : MonoBehaviour
     public GameObject debugSphere;
     public GameObject debugSphere1;
     public GameObject debugSphere2;
-
+        
     Camera cam;
 
     void Start()
@@ -41,17 +41,22 @@ public class TriangleHighlight : MonoBehaviour
         p0 = hitTransform.TransformPoint(p0);
         p1 = hitTransform.TransformPoint(p1);
         p2 = hitTransform.TransformPoint(p2);
-        Debug.DrawLine(p0, p1, Color.red, Time.deltaTime, false);
-        Debug.DrawLine(p1, p2);
-        Debug.DrawLine(p2, p0);
+        //Debug.DrawLine(p0, p1, Color.red, Time.deltaTime, false);
+        //Debug.DrawLine(p1, p2);
+        //Debug.DrawLine(p2, p0);
 
         debugSphere.transform.position = p0;
         debugSphere1.transform.position = p1;
         debugSphere2.transform.position = p2;
+        var face = hit.collider.gameObject.GetComponent<TerrainFace>().faceIndex;
 
-        var elevation = planet.terrainFaces[0].tiles[hit.triangleIndex/2].elevation;
+        var tile = planet.terrainFaces[face].tiles[hit.triangleIndex / 2];
+
+        var elevation = tile.elevation;
+
        
-        Debug.Log(elevation);
+        Debug.Log("tile index: " + tile.tileIndex + " - elevation: " + elevation);
+        Debug.Log("triangle index: " + hit.triangleIndex);
 
     }
 }
