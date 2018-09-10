@@ -22,7 +22,7 @@ public class Planet : MonoBehaviour {
 
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
-    TerrainFace[] terrainFaces;
+    public TerrainFace[] terrainFaces;
      
 
 	void Initialize()

@@ -5,11 +5,17 @@ using System.Collections;
 
 public class TriangleHighlight : MonoBehaviour
 {
+    public Planet planet;
+    public GameObject debugSphere;
+    public GameObject debugSphere1;
+    public GameObject debugSphere2;
+
     Camera cam;
 
     void Start()
     {
         cam = GetComponent<Camera>();
+        
     }
 
     void Update()
@@ -22,10 +28,12 @@ public class TriangleHighlight : MonoBehaviour
         if (meshCollider == null || meshCollider.sharedMesh == null)
             return;
 
+        
+
         Mesh mesh = meshCollider.sharedMesh;
         Vector3[] vertices = mesh.vertices;
         int[] triangles = mesh.triangles;
-        Debug.Log(hit.triangleIndex);
+        Debug.Log(hit.triangleIndex/2);
         Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]];
         Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]];
         Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]];
@@ -33,8 +41,17 @@ public class TriangleHighlight : MonoBehaviour
         p0 = hitTransform.TransformPoint(p0);
         p1 = hitTransform.TransformPoint(p1);
         p2 = hitTransform.TransformPoint(p2);
-        Debug.DrawLine(p0, p1);
+        Debug.DrawLine(p0, p1, Color.red, Time.deltaTime, false);
         Debug.DrawLine(p1, p2);
         Debug.DrawLine(p2, p0);
+
+        debugSphere.transform.position = p0;
+        debugSphere1.transform.position = p1;
+        debugSphere2.transform.position = p2;
+
+        var elevation = planet.terrainFaces[0].tiles[hit.triangleIndex/2].elevation;
+       
+        Debug.Log(elevation);
+
     }
 }

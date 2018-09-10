@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TerrainFace
 {
-
     ShapeGenerator shapeGenerator;
     Mesh mesh;
     int resolution;
     Vector3 localUp;
     Vector3 axisA;
     Vector3 axisB;
-    GridTile[] tiles;
+    public GridTile[] tiles;
+    public float[] elevations;
 
     public TerrainFace(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
     {
@@ -29,6 +29,7 @@ public class TerrainFace
         Vector3[] vertices = new Vector3[resolution * resolution];
         int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6];
         int triIndex = 0;
+        elevations = new float[resolution*resolution];
 
         for (int y = 0; y < resolution; y++)
         {
@@ -39,6 +40,7 @@ public class TerrainFace
                 Vector3 pointOnUnitCube = localUp + (percent.x - .5f) * 2 * axisA + (percent.y - .5f) * 2 * axisB;
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
+                elevations[i] = shapeGenerator.PointElevation(pointOnUnitSphere);
 
                 if (x != resolution - 1 && y != resolution - 1)
                 {
@@ -50,9 +52,13 @@ public class TerrainFace
                     triangles[triIndex + 4] = i + 1;
                     triangles[triIndex + 5] = i + resolution + 1;
                     triIndex += 6;
+
                 }
             }
         }
+
+        tiles = CreateGridTiles();
+
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -61,20 +67,26 @@ public class TerrainFace
 
     public GridTile[] CreateGridTiles()
     {
-        int numberOfTiles = (resolution - 1) * (resolution - 1) * 3;
+        int numberOfTiles = (resolution - 1) * (resolution - 1);
         tiles = new GridTile[numberOfTiles];
+        int vertCounter = 0;
 
         for (int i = 0; i < numberOfTiles; i++)
         {
+            var el0 = elevations[i];
+            var el1 = elevations[i + 1];
+            var el2 = elevations[i + resolution];
+            var el3 = elevations[i + (resolution+1)];
+            
+
             tiles[i] = new GridTile()
             {
-                gridID = i,
-                triangle1 = i * 2,
-                triangle2 = (i * 2) + 1
-
+                elevation = (el0 + el1 + el2 + el3) / 4
             };
+
         }
 
+        Debug.Log(tiles.Length);
         return tiles;
     }
 }

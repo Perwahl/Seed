@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class GridTile
 {
-    public int gridID;
-    public int triangle1;
-    public int triangle2;
-
-
+    public float elevation;
 }
