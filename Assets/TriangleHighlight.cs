@@ -9,13 +9,12 @@ public class TriangleHighlight : MonoBehaviour
     public GameObject debugSphere;
     public GameObject debugSphere1;
     public GameObject debugSphere2;
-        
+    public GridTarget target;        
     Camera cam;
 
     void Start()
     {
-        cam = GetComponent<Camera>();
-        
+        cam = GetComponent<Camera>();        
     }
 
     void Update()
@@ -33,30 +32,37 @@ public class TriangleHighlight : MonoBehaviour
         Mesh mesh = meshCollider.sharedMesh;
         Vector3[] vertices = mesh.vertices;
         int[] triangles = mesh.triangles;
-        Debug.Log(hit.triangleIndex/2);
-        Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]];
-        Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]];
-        Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]];
+        //Debug.Log(hit.triangleIndex/2);
+        //Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]];
+        //Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]];
+        //Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]];
         Transform hitTransform = hit.collider.transform;
-        p0 = hitTransform.TransformPoint(p0);
-        p1 = hitTransform.TransformPoint(p1);
-        p2 = hitTransform.TransformPoint(p2);
+        //p0 = hitTransform.TransformPoint(p0);
+        //p1 = hitTransform.TransformPoint(p1);
+        //p2 = hitTransform.TransformPoint(p2);
         //Debug.DrawLine(p0, p1, Color.red, Time.deltaTime, false);
         //Debug.DrawLine(p1, p2);
         //Debug.DrawLine(p2, p0);
 
-        debugSphere.transform.position = p0;
-        debugSphere1.transform.position = p1;
-        debugSphere2.transform.position = p2;
+        //debugSphere.transform.position = p0;
+        //debugSphere1.transform.position = p1;
+        //debugSphere2.transform.position = p2;
         var face = hit.collider.gameObject.GetComponent<TerrainFace>().faceIndex;
 
         var tile = planet.terrainFaces[face].tiles[hit.triangleIndex / 2];
 
-        var elevation = tile.elevation;
+        target.transform.position = tile.centroid;
+        target.transform.rotation = Quaternion.FromToRotation(Vector3.up, tile.localUp);
 
-       
-        Debug.Log("tile index: " + tile.tileIndex + " - elevation: " + elevation);
-        Debug.Log("triangle index: " + hit.triangleIndex);
+
+        //var elevation = tile.elevation;
+
+
+        //Debug.Log("tile index: " + tile.tileIndex + " - elevation: " + elevation);
+        //Debug.Log("triangle index: " + hit.triangleIndex);
 
     }
+
+
+
 }

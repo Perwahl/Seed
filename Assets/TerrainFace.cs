@@ -11,7 +11,7 @@ public class TerrainFace : MonoBehaviour
     int resolution;
     Vector3 localUp;
     Vector3 axisA;
-    Vector3 axisB;
+    Vector3 axisB;    
     public GridTile[] tiles;
     public float[] elevations;
     public int faceIndex;
@@ -29,7 +29,6 @@ public class TerrainFace : MonoBehaviour
 
         axisA = new Vector3(localUp.y, localUp.z, localUp.x);
         axisB = Vector3.Cross(localUp, axisA);
-
     }
 
     public void ConstructMesh()
@@ -60,19 +59,16 @@ public class TerrainFace : MonoBehaviour
                     triangles[triIndex + 4] = i + 1;
                     triangles[triIndex + 5] = i + resolution + 1;
                     triIndex += 6;
-
                 }
             }
         }
 
-
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-        mesh.RecalculateNormals();
+        mesh.RecalculateNormals();                
 
         tiles = CreateGridTiles();
-
     }
 
     public GridTile[] CreateGridTiles()
@@ -83,30 +79,24 @@ public class TerrainFace : MonoBehaviour
         var tileCounter = 0;
 
         for (int y = 0; y < resolution; y++)
-        {
-            Debug.Log("y=" + y);
+        {            
             for (int x = 0; x < resolution; x++)
-            {
-                Debug.Log("x=" + x);
+            {               
 
                 if (x != resolution-1 && y != resolution-1)
-                {
-                    
+                {                    
                     int i = x + (y * resolution);
 
-                    var el0 = elevations[i];
-                    var el1 = elevations[i + 1];
-                    var el2 = elevations[i + resolution];
-                    var el3 = elevations[i + (resolution + 1)];
-
-                    Debug.Log(tileCounter);
+                    var vert1 = i;
+                    var vert2 = i + 1;
+                    var vert3 = i + resolution;
+                    var vert4 = i + resolution + 1;
+                                        
                     tiles[tileCounter] = new GridTile()
                     {
                         tileIndex = tileCounter,
                         faceIndex = this.faceIndex,
-                        elevation = (el0 + el1 + el2 + el3) / 4f,
-                        angle = Mathf.Max(new float[] { el0, el1, el2, el3 }) - Mathf.Min(new float[] { el0, el1, el2, el3 }),
-                   
+                        elevation = (elevations[vert1] + elevations[vert2] + elevations[vert3] + elevations[vert4]) / 4f,
                         verts = new Vector3[]
                         {
                              mesh.vertices[i],
@@ -114,6 +104,9 @@ public class TerrainFace : MonoBehaviour
                              mesh.vertices[resolution+i],
                              mesh.vertices[resolution+i+1]
                         },
+
+                        localUp = (mesh.normals[i] + mesh.normals[i + 1] + mesh.normals[resolution + i] + mesh.normals[resolution + i + 1]) / 4
+
                     };
                     tiles[tileCounter].centroid = (tiles[tileCounter].verts[0] + tiles[tileCounter].verts[1] + tiles[tileCounter].verts[2] + tiles[tileCounter].verts[3]) / 4.0f;
                     tileCounter++;
@@ -129,10 +122,13 @@ public class TerrainFace : MonoBehaviour
     {
         foreach (GridTile tile in tiles)
         {
-            var d = Instantiate(debugText);
-            d.transform.position = tile.centroid + localUp;
+            var d = Instantiate(debugSphere);
+            d.transform.position = tile.centroid;
+            d.transform.rotation = Quaternion.FromToRotation(Vector3.up, tile.localUp);
+            //d.transform.LookAt(Vector3.zero);
+          //  d.transform.position = d.transform.position + Vector3
             d.name = tile.tileIndex.ToString();
-            d.text = tile.angle.ToString("F2");
+           // d.text = tile.angle.ToString("F2");
            // d.color = tile.elevation < 0.17f ? Color.green : Color.red;
             
         }
@@ -142,22 +138,22 @@ public class TerrainFace : MonoBehaviour
     public void Height1Debug()
     {
        
-        var a = Instantiate(debugSphere);      
-        var b = Instantiate(debugSphere);  
-        var c = Instantiate(debugSphere);
-        var d = Instantiate(debugSphere);
-        var e = Instantiate(debugSphere);
+        ////var a = Instantiate(debugSphere);      
+        ////var b = Instantiate(debugSphere);  
+        ////var c = Instantiate(debugSphere);
+        ////var d = Instantiate(debugSphere);
+        //var e = Instantiate(debugSphere);
        
-        a.transform.position = tiles[tile].verts[0];
-        a.name = "0";
-        b.transform.position = tiles[tile].verts[1];
-        b.name = "1";
-        c.transform.position = tiles[tile].verts[2];
-        c.name = "2";
-        d.transform.position = tiles[tile].verts[3];
-        d.name = "3";
-        e.transform.position = tiles[tile].centroid;
-        e.name = "cent";
+        //a.transform.position = tiles[tile].verts[0];
+        //a.name = "0";
+        //b.transform.position = tiles[tile].verts[1];
+        //b.name = "1";
+        //c.transform.position = tiles[tile].verts[2];
+        //c.name = "2";
+        //d.transform.position = tiles[tile].verts[3];
+        //d.name = "3";
+        //e.transform.position = tiles[tile].centroid;
+        //e.name = "cent";
 
 
     }

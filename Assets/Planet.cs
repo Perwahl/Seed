@@ -23,6 +23,7 @@ public class Planet : MonoBehaviour {
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
     public TerrainFace[] terrainFaces;
+    public Material planetMaterial;
      
 
 	void Initialize()
@@ -44,10 +45,12 @@ public class Planet : MonoBehaviour {
                 GameObject meshObj = new GameObject("mesh");
                 meshObj.transform.parent = transform;
 
-                meshObj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
+                meshObj.AddComponent<MeshRenderer>().sharedMaterial = planetMaterial;
+                meshObj.AddComponent<MeshCollider>();
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
                 terrainFaces[i] = meshObj.AddComponent<TerrainFace>();
+               
                 terrainFaces[i].faceIndex = i;
             }
 
