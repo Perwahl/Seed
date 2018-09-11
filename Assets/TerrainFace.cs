@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class TerrainFace : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class TerrainFace : MonoBehaviour
     public int tile;
 
     public GameObject debugSphere;
+    public TMP_Text debugText;
 
     public void Init(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
     {
@@ -62,12 +65,14 @@ public class TerrainFace : MonoBehaviour
             }
         }
 
-        tiles = CreateGridTiles();
 
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+
+        tiles = CreateGridTiles();
+
     }
 
     public GridTile[] CreateGridTiles()
@@ -86,17 +91,22 @@ public class TerrainFace : MonoBehaviour
 
                 if (x != resolution-1 && y != resolution-1)
                 {
-                    //var el0 = elevations[i];
-                    //var el1 = elevations[i + 1];
-                    //var el2 = elevations[i + resolution];
-                    //var el3 = elevations[i + (resolution + 1)];
+                    
                     int i = x + (y * resolution);
+
+                    var el0 = elevations[i];
+                    var el1 = elevations[i + 1];
+                    var el2 = elevations[i + resolution];
+                    var el3 = elevations[i + (resolution + 1)];
+
                     Debug.Log(tileCounter);
                     tiles[tileCounter] = new GridTile()
                     {
                         tileIndex = tileCounter,
                         faceIndex = this.faceIndex,
-                        //elevation = (el0 + el1 + el2 + el3) / 4,
+                        elevation = (el0 + el1 + el2 + el3) / 4f,
+                        angle = Mathf.Max(new float[] { el0, el1, el2, el3 }) - Mathf.Min(new float[] { el0, el1, el2, el3 }),
+                   
                         verts = new Vector3[]
                         {
                              mesh.vertices[i],
@@ -119,9 +129,12 @@ public class TerrainFace : MonoBehaviour
     {
         foreach (GridTile tile in tiles)
         {
-            var d = Instantiate(debugSphere);
-            d.transform.position = tile.centroid;
+            var d = Instantiate(debugText);
+            d.transform.position = tile.centroid + localUp;
             d.name = tile.tileIndex.ToString();
+            d.text = tile.angle.ToString("F2");
+           // d.color = tile.elevation < 0.17f ? Color.green : Color.red;
+            
         }
     }
 
