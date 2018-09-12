@@ -47,7 +47,7 @@ public class TerrainFace : MonoBehaviour
                 Vector3 pointOnUnitCube = localUp + (percent.x - .5f) * 2 * axisA + (percent.y - .5f) * 2 * axisB;
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
-                elevations[i] = shapeGenerator.PointElevation(pointOnUnitSphere);
+                //elevations[i] = shapeGenerator.PointElevation(pointOnUnitSphere);
 
                 if (x != resolution - 1 && y != resolution - 1)
                 {
@@ -68,7 +68,7 @@ public class TerrainFace : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();                
 
-        tiles = CreateGridTiles();
+       // tiles = CreateGridTiles();
     }
 
     public GridTile[] CreateGridTiles()
