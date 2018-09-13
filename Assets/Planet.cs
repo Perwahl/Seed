@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet : MonoBehaviour {
+public class Planet : MonoBehaviour
+{
 
-    [Range(2,256)]
+    [Range(2, 256)]
     public int resolution = 10;
     public bool autoUpdate = true;
     public enum FaceRenderMask { All, Top, Bottom, Left, Right, Front, Back };
@@ -23,9 +24,9 @@ public class Planet : MonoBehaviour {
 
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
-    public TerrainFace[] terrainFaces;  
+    public TerrainFace[] terrainFaces;
 
-	void Initialize()
+    void Initialize()
     {
         shapeGenerator.UpdateSettings(shapeSettings);
         colorGenerator.UpdateSettings(colourSettings);
@@ -34,7 +35,7 @@ public class Planet : MonoBehaviour {
         {
             meshFilters = new MeshFilter[6];
         }
-       // terrainFaces = new TerrainFace[6];
+        // terrainFaces = new TerrainFace[6];
 
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
@@ -50,7 +51,7 @@ public class Planet : MonoBehaviour {
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
                 terrainFaces[i] = meshObj.AddComponent<TerrainFace>();
-               
+
                 terrainFaces[i].faceIndex = i;
             }
 
@@ -61,6 +62,38 @@ public class Planet : MonoBehaviour {
             bool renderFace = faceRenderMask == FaceRenderMask.All || (int)faceRenderMask - 1 == i;
             meshFilters[i].gameObject.SetActive(renderFace);
         }
+    }
+
+    [ContextMenu("One Planet")]
+    public void CombineAndRuleThemAll()
+    {
+        List<int> triangles = new List<int>();
+        List<Vector3> vertices = new List<Vector3>();
+
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+        CombineInstance[] combine = new CombineInstance[terrainFaces.Length];
+
+        int i = 0;
+        while (i < meshFilters.Length)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.active = false;
+            i++;
+        }
+
+        GameObject meshObj = new GameObject("planet");
+
+        meshObj.AddComponent<MeshRenderer>();
+        meshObj.AddComponent<MeshCollider>();
+        meshObj.AddComponent<MeshFilter>();
+        meshObj.GetComponent<MeshRenderer>().sharedMaterial = colourSettings.planetMaterial;
+
+        Mesh mesh= new Mesh();
+        mesh.CombineMeshes(combine);
+        mesh.RecalculateNormals();
+        
+        meshObj.GetComponent<MeshFilter>().mesh = mesh;
     }
 
     public void GeneratePlanet()

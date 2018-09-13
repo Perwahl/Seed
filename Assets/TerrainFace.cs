@@ -7,7 +7,7 @@ using System;
 public class TerrainFace : MonoBehaviour
 {
     ShapeGenerator shapeGenerator;
-    Mesh mesh;
+    public Mesh mesh;
     int resolution;
     Vector3 localUp;
     Vector3 axisA;
@@ -23,7 +23,7 @@ public class TerrainFace : MonoBehaviour
     public void Init(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
     {
         this.shapeGenerator = shapeGenerator;
-        this.mesh = mesh;
+        this.mesh = mesh;        
         this.resolution = resolution;
         this.localUp = localUp;
 
@@ -70,6 +70,8 @@ public class TerrainFace : MonoBehaviour
 
        // tiles = CreateGridTiles();
     }
+
+    
 
     public GridTile[] CreateGridTiles()
     {
