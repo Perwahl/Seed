@@ -20,7 +20,7 @@ public class TerrainFace : MonoBehaviour
     public GameObject debugSphere;
     public TMP_Text debugText;
 
-    public void Init(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
+    public void Init(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp, int tileResolution)
     {
         this.shapeGenerator = shapeGenerator;
         this.mesh = mesh;        
@@ -36,7 +36,7 @@ public class TerrainFace : MonoBehaviour
         Vector3[] vertices = new Vector3[resolution * resolution];
         int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6];
         int triIndex = 0;
-        elevations = new float[resolution * resolution];
+        elevations = new float[resolution*resolution];
 
         for (int y = 0; y < resolution; y++)
         {
@@ -46,8 +46,7 @@ public class TerrainFace : MonoBehaviour
                 Vector2 percent = new Vector2(x, y) / (resolution - 1);
                 Vector3 pointOnUnitCube = localUp + (percent.x - .5f) * 2 * axisA + (percent.y - .5f) * 2 * axisB;
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
-                vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
-                //elevations[i] = shapeGenerator.PointElevation(pointOnUnitSphere);
+                vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere, out elevations[i]);                
 
                 if (x != resolution - 1 && y != resolution - 1)
                 {
@@ -68,31 +67,31 @@ public class TerrainFace : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();                
 
-       // tiles = CreateGridTiles();
+        tiles = CreateGridTiles();
     }
-
-    
 
     public GridTile[] CreateGridTiles()
     {
+        int gridDimension = 3;
         int tileres = resolution-1;
         int numberOfTiles = (tileres) * (tileres);
         tiles = new GridTile[numberOfTiles];
         var tileCounter = 0;
 
-        for (int y = 0; y < resolution; y++)
-        {            
-            for (int x = 0; x < resolution; x++)
-            {               
+        for (int y = 0; y < resolution; y= y+ gridDimension)
+        {
+            for (int x = 0; x < resolution; x= x+ gridDimension)
+            {
+                Debug.Log("y: " + y + " x:" + x);
 
                 if (x != resolution-1 && y != resolution-1)
                 {                    
                     int i = x + (y * resolution);
 
                     var vert1 = i;
-                    var vert2 = i + 1;
+                    var vert2 = i + gridDimension;
                     var vert3 = i + resolution;
-                    var vert4 = i + resolution + 1;
+                    var vert4 = i + resolution + gridDimension;
                                         
                     tiles[tileCounter] = new GridTile()
                     {
@@ -102,12 +101,12 @@ public class TerrainFace : MonoBehaviour
                         verts = new Vector3[]
                         {
                              mesh.vertices[i],
-                             mesh.vertices[i+1],
+                             mesh.vertices[i+gridDimension],
                              mesh.vertices[resolution+i],
-                             mesh.vertices[resolution+i+1]
+                             mesh.vertices[resolution+i+gridDimension]
                         },
 
-                        localUp = (mesh.normals[i] + mesh.normals[i + 1] + mesh.normals[resolution + i] + mesh.normals[resolution + i + 1]) / 4
+                        localUp = (mesh.normals[i] + mesh.normals[i + gridDimension] + mesh.normals[resolution + i] + mesh.normals[resolution + i + gridDimension]) / 4
 
                     };
                     tiles[tileCounter].centroid = (tiles[tileCounter].verts[0] + tiles[tileCounter].verts[1] + tiles[tileCounter].verts[2] + tiles[tileCounter].verts[3]) / 4.0f;

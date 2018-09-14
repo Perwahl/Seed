@@ -19,7 +19,7 @@ public class ShapeGenerator {
         elevationMinMax = new MinMax();
     }
 
-    public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere)
+    public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere, out float finalElevation)
     {        
         float firstLayerValue = 0;
         float elevation = 0;
@@ -42,7 +42,7 @@ public class ShapeGenerator {
             }
         }
         elevation = settings.planetRadius * (1 + elevation);
-        elevationMinMax.AddValue(elevation);
+        finalElevation = elevation;
         return pointOnUnitSphere * elevation;
     }
 }

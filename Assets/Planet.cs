@@ -6,7 +6,9 @@ public class Planet : MonoBehaviour
 {
 
     [Range(2, 256)]
-    public int resolution = 10;
+    public int terrainResolution = 10;
+    public int tileResolution = 10;
+        
     public bool autoUpdate = true;
     public enum FaceRenderMask { All, Top, Bottom, Left, Right, Front, Back };
     public FaceRenderMask faceRenderMask;
@@ -29,7 +31,7 @@ public class Planet : MonoBehaviour
     void Initialize()
     {
         shapeGenerator.UpdateSettings(shapeSettings);
-        colorGenerator.UpdateSettings(colourSettings);
+        colorGenerator.UpdateSettings(colourSettings);        
 
         if (meshFilters == null || meshFilters.Length == 0)
         {
@@ -47,20 +49,24 @@ public class Planet : MonoBehaviour
                 meshObj.transform.parent = transform;
 
                 meshObj.AddComponent<MeshRenderer>();
-                meshObj.AddComponent<MeshCollider>();
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
                 terrainFaces[i] = meshObj.AddComponent<TerrainFace>();
+                meshObj.AddComponent<MeshCollider>().sharedMesh = terrainFaces[i].mesh;
 
                 terrainFaces[i].faceIndex = i;
+               
             }
 
             meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = colourSettings.planetMaterial;
 
             // terrainFaces[i] = new TerrainFace(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
-            terrainFaces[i].Init(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+            terrainFaces[i].Init(shapeGenerator, meshFilters[i].sharedMesh, terrainResolution, directions[i], tileResolution);
             bool renderFace = faceRenderMask == FaceRenderMask.All || (int)faceRenderMask - 1 == i;
             meshFilters[i].gameObject.SetActive(renderFace);
+            
+            
+
         }
     }
 

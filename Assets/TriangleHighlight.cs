@@ -26,9 +26,7 @@ public class TriangleHighlight : MonoBehaviour
         MeshCollider meshCollider = hit.collider as MeshCollider;
         if (meshCollider == null || meshCollider.sharedMesh == null)
             return;
-
         
-
         Mesh mesh = meshCollider.sharedMesh;
         Vector3[] vertices = mesh.vertices;
         int[] triangles = mesh.triangles;
@@ -58,7 +56,7 @@ public class TriangleHighlight : MonoBehaviour
         //var elevation = tile.elevation;
 
 
-        //Debug.Log("tile index: " + tile.tileIndex + " - elevation: " + elevation);
+        Debug.Log("tile index: " + tile.tileIndex + " - elevation: ");
         //Debug.Log("triangle index: " + hit.triangleIndex);
 
     }
