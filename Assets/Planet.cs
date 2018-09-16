@@ -28,6 +28,13 @@ public class Planet : MonoBehaviour
     MeshFilter[] meshFilters;
     public TerrainFace[] terrainFaces;
 
+    private void Start()
+    {
+        Initialize();
+        GenerateColours();
+
+    }
+
     void Initialize()
     {
         shapeGenerator.UpdateSettings(shapeSettings);

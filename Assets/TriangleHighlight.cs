@@ -1,66 +1,93 @@
 ﻿// This script draws a debug line around mesh triangles
 // as you move the mouse over them.
 using UnityEngine;
-using System.Collections;
 
 public class TriangleHighlight : MonoBehaviour
 {
     public Planet planet;
-    public GameObject debugSphere;
-    public GameObject debugSphere1;
-    public GameObject debugSphere2;
-    public GridTarget target;        
+    public GameObject debugSpherePrefab;
+    public GameObject square;
+    public GameObject[] debugSpheres;
+    Vector3 lastMouseCoordinate = Vector3.zero;
+
+    public GridTarget target;
     Camera cam;
 
     void Start()
     {
-        cam = GetComponent<Camera>();        
+        cam = GetComponent<Camera>();
+        debugSpheres = new GameObject[16];
+        for (int i = 0; i < 16; i++)
+        {
+            debugSpheres[i] = Instantiate(debugSpherePrefab);
+        }
     }
 
     void Update()
     {
-        RaycastHit hit;
-        if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
-            return;
+        Vector3 mouseDelta = Input.mousePosition - lastMouseCoordinate;
 
-        MeshCollider meshCollider = hit.collider as MeshCollider;
-        if (meshCollider == null || meshCollider.sharedMesh == null)
-            return;
-        
-        Mesh mesh = meshCollider.sharedMesh;
-        Vector3[] vertices = mesh.vertices;
-        int[] triangles = mesh.triangles;
-        //Debug.Log(hit.triangleIndex/2);
-        //Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]];
-        //Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]];
-        //Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]];
-        Transform hitTransform = hit.collider.transform;
-        //p0 = hitTransform.TransformPoint(p0);
-        //p1 = hitTransform.TransformPoint(p1);
-        //p2 = hitTransform.TransformPoint(p2);
-        //Debug.DrawLine(p0, p1, Color.red, Time.deltaTime, false);
-        //Debug.DrawLine(p1, p2);
-        //Debug.DrawLine(p2, p0);
+        if (Mathf.Abs(mouseDelta.magnitude) > 0)
+        {
+            RaycastHit hit;
+            if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
+                return;
 
-        //debugSphere.transform.position = p0;
-        //debugSphere1.transform.position = p1;
-        //debugSphere2.transform.position = p2;
-        var face = hit.collider.gameObject.GetComponent<TerrainFace>().faceIndex;
+            MeshCollider meshCollider = hit.collider as MeshCollider;
+            if (meshCollider == null || meshCollider.sharedMesh == null)
+                return;
 
-        var tile = planet.terrainFaces[face].tiles[hit.triangleIndex / 2];
+            Mesh mesh = meshCollider.sharedMesh;
+            Vector3[] vertices = mesh.vertices;
+            int[] triangles = mesh.triangles;
 
-        target.transform.position = tile.centroid;
-        target.transform.rotation = Quaternion.FromToRotation(Vector3.up, tile.localUp);
+            Transform hitTransform = hit.collider.transform;
+            int vert = triangles[hit.triangleIndex * 3];
+            int face = hit.collider.GetComponent<TerrainFace>().faceIndex;
 
+            for (int x = 0; x < 4; x++)
+            {
+                for (int y = 0; y < 4; y++)
+                {
+                    var i = x + (y * 4);
 
-        //var elevation = tile.elevation;
+                    int vert1 = vert + x + (y * planet.terrainResolution);
+                    Vector3 pos = vertices[vert1];
+                    var p1 = hitTransform.TransformPoint(pos);
+                    debugSpheres[i].transform.position = p1;
+                    Color col = planet.terrainFaces[face].elevations[vert1] > 8.15f ? Color.red : Color.green;
+                    debugSpheres[i].GetComponent<Renderer>().material.color = col;
+                    // Debug.Log("face: " + face + " vert:" + vert1 + " elevation: " + planet.terrainFaces[face].elevations[vert1]);
 
+                }
+            }
+        }
+        lastMouseCoordinate = Input.mousePosition;
 
-        Debug.Log("tile index: " + tile.tileIndex + " - elevation: ");
-        //Debug.Log("triangle index: " + hit.triangleIndex);
+        if (Input.GetMouseButtonUp(0))
+        {
+            RaycastHit hit;
+            if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
+                return;
+
+            MeshCollider meshCollider = hit.collider as MeshCollider;
+            if (meshCollider == null || meshCollider.sharedMesh == null)
+                return;
+
+            Mesh mesh = meshCollider.sharedMesh;
+            Vector3[] vertices = mesh.vertices;
+            int[] triangles = mesh.triangles;
+
+            Transform hitTransform = hit.collider.transform;
+            int vert = triangles[hit.triangleIndex * 3];
+            int face = hit.collider.GetComponent<TerrainFace>().faceIndex;
+
+            Vector3 pos = vertices[vert];
+            var p1 = hitTransform.TransformPoint(pos);
+
+            var building = Instantiate(square);
+            building.transform.position = p1;
+        }
 
     }
-
-
-
 }

@@ -67,7 +67,7 @@ public class TerrainFace : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();                
 
-        tiles = CreateGridTiles();
+       // tiles = CreateGridTiles();
     }
 
     public GridTile[] CreateGridTiles()
