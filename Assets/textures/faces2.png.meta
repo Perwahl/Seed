@@ -192,13 +192,13 @@ TextureImporter:
       name: faces2_3
       rect:
         serializedVersion: 2
-        x: 5
+        x: 53
         y: 798
-        width: 664
-        height: 430
+        width: 594
+        height: 395
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 42, y: 0, z: 0, w: 6}
+      border: {x: 0, y: 0, z: 0, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -252,10 +252,10 @@ TextureImporter:
       name: faces2_6
       rect:
         serializedVersion: 2
-        x: 138
-        y: 427
-        width: 463
-        height: 343
+        x: 80
+        y: 586
+        width: 400
+        height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +272,10 @@ TextureImporter:
       name: faces2_7
       rect:
         serializedVersion: 2
-        x: 751
-        y: 447
-        width: 490
-        height: 334
+        x: 80
+        y: 376
+        width: 400
+        height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,10 +292,10 @@ TextureImporter:
       name: faces2_8
       rect:
         serializedVersion: 2
-        x: 1413
-        y: 456
-        width: 543
-        height: 362
+        x: 84
+        y: 15
+        width: 400
+        height: 140
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: faces2_9
       rect:
         serializedVersion: 2
-        x: 214
-        y: 159
-        width: 305
-        height: 212
+        x: 80
+        y: 156
+        width: 400
+        height: 235
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,8 +332,8 @@ TextureImporter:
       name: faces2_10
       rect:
         serializedVersion: 2
-        x: 848
-        y: 136
+        x: 838
+        y: 0
         width: 356
         height: 232
       alignment: 0
@@ -353,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1552
-        y: 136
+        y: 0
         width: 300
         height: 226
       alignment: 0

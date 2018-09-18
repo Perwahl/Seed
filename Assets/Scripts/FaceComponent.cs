@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "FaceComponent")]
 public class FaceComponent : ScriptableObject
 {
     [SerializeField] private bool optional;
     [SerializeField] public Sprite sprite;
+   
 
     public enum FaceComponentType { head,  eyes, hair, mouth };
 
@@ -14,20 +14,31 @@ public class FaceComponent : ScriptableObject
 
 }
 
-//public class Eyes : FaceComponent
-//{
-   
+[CreateAssetMenu(menuName = "FaceComponent/Eyes")]
+public class Eyes : FaceComponent
+{
+   // [SerializeField] public Sprite sadSprite;
+    [SerializeField] public Sprite sleepSprite;
+    [SerializeField] public Sprite madSprite;
 
-//}
+    [SerializeField] public Sprite pupilSprite;
 
-//public class Mouth : FaceComponent
-//{
-   
 
-//}
+}
 
-//public class Hair :FaceComponent
-//{
-//    private bool optional;
+[CreateAssetMenu(menuName = "FaceComponent/Mouth")]
+public class Mouth : FaceComponent
+{
 
-//}
+
+}
+
+[CreateAssetMenu(menuName = "FaceComponent/Hair")]
+public class Hair : FaceComponent
+{
+}
+
+[CreateAssetMenu(menuName = "FaceComponent/BaseHead")]
+public class Head : FaceComponent
+{
+}
