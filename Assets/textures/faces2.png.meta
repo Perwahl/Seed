@@ -14,6 +14,15 @@ TextureImporter:
     21300018: faces2_9
     21300020: faces2_10
     21300022: faces2_11
+    21300024: mouth3
+    21300026: faces2_12
+    21300028: faces2_13
+    21300030: faces2_14
+    21300032: faces2_15
+    21300034: faces2_16
+    21300036: faces2_17
+    21300038: faces2_18
+    21300040: faces2_19
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -132,12 +141,12 @@ TextureImporter:
       name: faces2_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1300
-        width: 625
-        height: 647
-      alignment: 9
-      pivot: {x: 0.5136542, y: 0.5087262}
+        x: 0
+        y: 1363
+        width: 684
+        height: 684
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,10 +161,10 @@ TextureImporter:
       name: faces2_1
       rect:
         serializedVersion: 2
-        x: 675
-        y: 1259
-        width: 625
-        height: 761
+        x: 684
+        y: 1362
+        width: 684
+        height: 684
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +181,10 @@ TextureImporter:
       name: faces2_2
       rect:
         serializedVersion: 2
-        x: 1311
-        y: 1268
-        width: 668
-        height: 769
+        x: 1364
+        y: 1364
+        width: 684
+        height: 684
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,13 +201,13 @@ TextureImporter:
       name: faces2_3
       rect:
         serializedVersion: 2
-        x: 53
-        y: 798
-        width: 594
-        height: 395
+        x: 0
+        y: 1020
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 6}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -212,10 +221,10 @@ TextureImporter:
       name: faces2_4
       rect:
         serializedVersion: 2
-        x: 695
-        y: 798
-        width: 639
-        height: 438
+        x: 341
+        y: 1020
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,10 +241,10 @@ TextureImporter:
       name: faces2_5
       rect:
         serializedVersion: 2
-        x: 1334
-        y: 812
-        width: 696
-        height: 470
+        x: 684
+        y: 1020
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,10 +261,10 @@ TextureImporter:
       name: faces2_6
       rect:
         serializedVersion: 2
-        x: 80
-        y: 586
-        width: 400
-        height: 235
+        x: 0
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +281,10 @@ TextureImporter:
       name: faces2_7
       rect:
         serializedVersion: 2
-        x: 80
-        y: 376
-        width: 400
-        height: 235
+        x: 342
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,10 +301,10 @@ TextureImporter:
       name: faces2_8
       rect:
         serializedVersion: 2
-        x: 84
-        y: 15
-        width: 400
-        height: 140
+        x: 684
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +321,10 @@ TextureImporter:
       name: faces2_9
       rect:
         serializedVersion: 2
-        x: 80
-        y: 156
-        width: 400
-        height: 235
+        x: 1026
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -332,10 +341,10 @@ TextureImporter:
       name: faces2_10
       rect:
         serializedVersion: 2
-        x: 838
-        y: 0
-        width: 356
-        height: 232
+        x: 1369
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -352,10 +361,10 @@ TextureImporter:
       name: faces2_11
       rect:
         serializedVersion: 2
-        x: 1552
-        y: 0
-        width: 300
-        height: 226
+        x: 1706
+        y: 677
+        width: 342
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -364,6 +373,186 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a2c58472aff75c947b7bf67e25b6d505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouth3
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 335
+        width: 341
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0080db022d86ca946b0c187e5529ae28
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 338
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13ad1c6056fc2244fa3293161c8d092d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 212f9bfd13465104a94bbab7dad938d0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_14
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 337
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7a939f01f720904992b890464e71786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_15
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 336
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73b916b58b78714093f6f784261c438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_16
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 335
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12a453a0133970d49b15bac6ded071e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_17
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 0
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e32ad63e57a93c4db389780b8c47e11
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_18
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 0
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b1d0f57fbaaeb44d85a1d127f2bd652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faces2_19
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 0
+        width: 342
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3abf8c31786f87f499e379e986e245f9
       vertices: []
       indices: 
       edges: []

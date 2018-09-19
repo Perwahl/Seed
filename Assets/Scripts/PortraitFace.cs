@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PortraitFace : MonoBehaviour
 {
+    public enum FaceState { calm, sad, mad, sleep};
+
+    public FaceState currentState;
+
     [SerializeField] private Head currentHead;
     [SerializeField] private Eyes currentEyes;
     [SerializeField] private Mouth currentMouth;
@@ -14,8 +18,8 @@ public class PortraitFace : MonoBehaviour
     [SerializeField] private Hair[] hair;
     [SerializeField] private Color[] hairColor;
 
-    [SerializeField] private SpriteRenderer eyesRenderer;
-    [SerializeField] private SpriteRenderer pupilsRenderer;
+    [SerializeField] public SpriteRenderer eyesRenderer;
+    [SerializeField] public SpriteRenderer pupilsRenderer;
     [SerializeField] private SpriteRenderer mouthsRenderer;
     [SerializeField] private SpriteRenderer hairsRenderer;
 
@@ -24,14 +28,16 @@ public class PortraitFace : MonoBehaviour
     public void Sad()
     {
         pupilsRenderer.sprite = currentEyes.pupilSprite;
-
+        currentState = FaceState.sad;
     }
 
     public void Calm()
     {
         eyesRenderer.sprite = currentEyes.sprite;
         pupilsRenderer.sprite = currentEyes.pupilSprite;
+        mouthsRenderer.sprite = currentMouth.sprite;
 
+        currentState = FaceState.calm;
 
     }
 
@@ -39,6 +45,7 @@ public class PortraitFace : MonoBehaviour
     {
         eyesRenderer.sprite = currentEyes.sleepSprite;
         pupilsRenderer.sprite = null;
+        currentState = FaceState.sleep;
 
     }
 
@@ -46,6 +53,9 @@ public class PortraitFace : MonoBehaviour
     {
         eyesRenderer.sprite = currentEyes.madSprite;
         pupilsRenderer.sprite = currentEyes.pupilSprite;
+        mouthsRenderer.sprite = currentMouth.madSprite;
+        currentState = FaceState.mad;
+
     }
 
     public void GenerateFace()
@@ -64,5 +74,25 @@ public class PortraitFace : MonoBehaviour
         hairsRenderer.sprite = currentHair.sprite;
         hairsRenderer.color = hairColor[UnityEngine.Random.Range(0, hairColor.Length)];
 
+    }
+
+    public void ChangeFace(FaceState state)
+    {
+        switch (state)
+        {
+            case FaceState.calm:
+                Calm();
+                break;
+            case FaceState.mad:
+                Mad();
+                break;
+            case FaceState.sad:
+                Sad();
+                break;
+            case FaceState.sleep:
+                Sleep();
+                break;
+        }
+            
     }
 }
