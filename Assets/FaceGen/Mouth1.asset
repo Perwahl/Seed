@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60245f6f1b359da4ea7c1a22a436591b, type: 3}
-  m_Name: mouth1
+  m_Name: Mouth1
   m_EditorClassIdentifier: 
   optional: 0
   sprite: {fileID: 21300022, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}
