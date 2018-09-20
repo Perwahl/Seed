@@ -27,7 +27,7 @@ public class TriangleHighlight : MonoBehaviour
     {
         Vector3 mouseDelta = Input.mousePosition - lastMouseCoordinate;
 
-        if (Mathf.Abs(mouseDelta.magnitude) > 0)
+        if (Mathf.Abs(mouseDelta.magnitude) > 1)
         {
             RaycastHit hit;
             if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
@@ -64,7 +64,7 @@ public class TriangleHighlight : MonoBehaviour
         }
         lastMouseCoordinate = Input.mousePosition;
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) )
         {
             RaycastHit hit;
             if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit))
