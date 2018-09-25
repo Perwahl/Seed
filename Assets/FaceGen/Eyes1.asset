@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df57ed21cb217d4e932103b9bf0f3fd, type: 3}
   m_Name: Eyes1
   m_EditorClassIdentifier: 
-  optional: 0
   sprite: {fileID: 21300016, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}
-  type: 1
+  componentType: 0
+  types: 00000000
   sleepSprite: {fileID: 21300014, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}
   madSprite: {fileID: 21300012, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}
   pupilSprite: {fileID: 21300018, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}

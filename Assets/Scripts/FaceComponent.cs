@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 
 public class FaceComponent : ScriptableObject
-{
-    [SerializeField] private bool optional;
+{    
     [SerializeField] public Sprite sprite;
    
 
-    public enum FaceComponentType { head,  eyes, hair, mouth };
+    public enum FaceComponentType { eyes, hair, mouth };
 
-    [SerializeField]
-    private FaceComponentType type;
+    [SerializeField] public FaceComponentType componentType;
+    [SerializeField] public CharacterPortrait.CharacterType[] types;
+  
+
+
 }
 

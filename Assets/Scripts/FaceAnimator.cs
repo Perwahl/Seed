@@ -5,23 +5,28 @@ using UnityEngine;
 public class FaceAnimator : MonoBehaviour
 {
 
-    public PortraitFace face;
+    public CharacterPortrait face;
+    private Coroutine blinkLoop;
+    private Coroutine glanceLoop;
 
-    private void Start()
+    public void Animate()
     {
-        StartCoroutine(BlinkLoop());
-        StartCoroutine(GlanceLoop());
+        if(blinkLoop != null) StopCoroutine(blinkLoop);
+        if (glanceLoop != null) StopCoroutine(glanceLoop);
+      
+        blinkLoop = StartCoroutine(BlinkLoop());
+        glanceLoop = StartCoroutine(GlanceLoop());
 
     }
 
     private IEnumerator BlinkLoop()
-    {        
-        PortraitFace.FaceState previousFace;
+    {
+        CharacterPortrait.FaceState previousFace;
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(1.5f, 10f));
             previousFace = face.currentState;
-            face.ChangeFace(PortraitFace.FaceState.sleep);
+            face.ChangeFace(CharacterPortrait.FaceState.sleep);
             yield return new WaitForSeconds(0.2f);
             face.ChangeFace(previousFace);
 
@@ -34,9 +39,9 @@ public class FaceAnimator : MonoBehaviour
         {
             var direction = Random.value < 0.5f ? -1 : 1;
             yield return new WaitForSeconds(Random.Range(3f, 15f));
-            face.pupilsRenderer.transform.position = face.pupilsRenderer.transform.position + (transform.right*0.1f * direction);
+            face.portrait.pupilsRenderer.transform.position = face.portrait.pupilsRenderer.transform.position + (transform.right*0.1f * direction);
             yield return new WaitForSeconds(Random.Range(0.2f, 3f));
-            face.pupilsRenderer.transform.position = face.pupilsRenderer.transform.position + (transform.right * -0.1f*direction);
+            face.portrait.pupilsRenderer.transform.position = face.portrait.pupilsRenderer.transform.position + (transform.right * -0.1f*direction);
 
         }
     }

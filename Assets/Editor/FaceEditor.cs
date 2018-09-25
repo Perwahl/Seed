@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PortraitFace))]
+[CustomEditor(typeof(CharacterPortrait))]
 public class FaceEditor : Editor
 {
 
-    public PortraitFace faceGen;
+    public CharacterPortrait faceGen;
 
     public override void OnInspectorGUI()
     {
@@ -64,6 +64,6 @@ public class FaceEditor : Editor
 
     private void OnEnable()
     {
-        faceGen = (PortraitFace)target;
+        faceGen = (CharacterPortrait)target;
     }
 }

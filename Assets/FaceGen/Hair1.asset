@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93ac84814342da48a4ed8aed85b93bd, type: 3}
   m_Name: Hair1
   m_EditorClassIdentifier: 
-  optional: 0
   sprite: {fileID: 21300006, guid: 612d496a8b253e647b140f41e6cc26ef, type: 3}
-  type: 0
+  componentType: 2
+  types: 00000000
