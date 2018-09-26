@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Planet))]
+[CustomEditor(typeof(PlanetBehavior))]
 public class PlanetEditor : Editor {
 
-    Planet planet;
+    PlanetBehavior planet;
     Editor shapeEditor;
     Editor colourEditor;
 
@@ -56,6 +56,6 @@ public class PlanetEditor : Editor {
 
 	private void OnEnable()
 	{
-        planet = (Planet)target;
+        planet = (PlanetBehavior)target;
 	}
 }
